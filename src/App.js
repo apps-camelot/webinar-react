@@ -2,29 +2,31 @@ import { Fragment, useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const Input = (props) => {
+  const Header = (props) => {
     return (
-      <Fragment>
-        <input
-          type={props.type || "radio"}
-          name={props.name || "genero"}
-          value={props.value}
-          onChange={(e) => {
-            if (e.target.checked) {
-              console.log(e.target.value);
-            }
-          }}
-        />
-        {props.label}
-      </Fragment>
+      <div>
+        Soy el header
+        <br />
+        {props.children}
+      </div>
     );
+  };
+
+  const Producto = () => {
+    return <div>So un producto</div>;
   };
 
   return (
     <div>
-      <Input value="femenino" label="Femenino" />
-      <Input value="masculino" label="Masculino" />
-      <Input type="password" label="Password" />
+      <Header>
+        <Producto />
+      </Header>
+
+      <Header>Tareas</Header>
+
+      <Header>
+        <h1>Soy un children</h1>
+      </Header>
     </div>
   );
 }
