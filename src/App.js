@@ -1,28 +1,30 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import "./App.css";
-import Tarjeta from "./components/Tarjeta/Tarjeta";
 
 function App() {
-  const datos = [
-    {
-      nombre: "Pizza",
-      precio: "$120.00",
-    },
-    {
-      nombre: "Hamburguesa",
-      precio: "$60.00",
-    },
-    {
-      nombre: "Refresco",
-      precio: "$20.00",
-    },
-  ];
+  const Input = (props) => {
+    return (
+      <Fragment>
+        <input
+          type={props.type || "radio"}
+          name={props.name || "genero"}
+          value={props.value}
+          onChange={(e) => {
+            if (e.target.checked) {
+              console.log(e.target.value);
+            }
+          }}
+        />
+        {props.label}
+      </Fragment>
+    );
+  };
 
   return (
     <div>
-      {datos.map((comida, i) => {
-        return <Tarjeta key={i} comida={comida} />;
-      })}
+      <Input value="femenino" label="Femenino" />
+      <Input value="masculino" label="Masculino" />
+      <Input type="password" label="Password" />
     </div>
   );
 }
