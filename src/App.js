@@ -1,54 +1,29 @@
 import "./App.css";
 import React from "react";
-import { Router, Link } from "@reach/router";
 
 function App() {
-  let number = 25;
+  function local() {
+    console.log("localStorage");
+    localStorage.setItem("nombre", "Apps Camelot");
 
-  const Invoice = (props) => (
-    <div>
-      <h2>Invoice {props.invoiceId}</h2>
-    </div>
-  );
+    setTimeout(function () {
+      console.log(localStorage.getItem("nombre"));
+    }, 1000);
+  }
 
-  const Home = () => <h2>Soy el Home</h2>;
+  const session = () => {
+    console.log("sessionStorage");
+    sessionStorage.setItem("key", 123);
 
-  const Dashboard = () => <h2>Soy el Dashboard</h2>;
-
-  const Invoices = (props) => (
-    <div>
-      <h2>Invoices</h2>
-      <ul>
-        <li>
-          <Link to={"/invoices/" + number}>Invoice {number}</Link>
-        </li>
-        <li>
-          <Link to="/invoices/abc">Invoice ABC</Link>
-        </li>
-      </ul>
-
-      {props.children}
-    </div>
-  );
+    setTimeout(function () {
+      console.log(sessionStorage.getItem("key"));
+    }, 1000);
+  };
 
   return (
     <div>
-      <h1>Tutorial!</h1>
-      <nav>
-        <Link to="/">Home</Link>
-        {" | "}
-        <Link to="dashboard">Dashboard</Link>
-        {" | "}
-        <Link to="invoices">Invoices</Link>
-      </nav>
-
-      <Router>
-        <Invoices path="invoices">
-          <Invoice path=":invoiceId" />
-        </Invoices>
-        <Home path="home" />
-        <Dashboard path="dashboard" />
-      </Router>
+      <button onClick={local}>Local storage</button>
+      <button onClick={session}>Session storage</button>
     </div>
   );
 }
