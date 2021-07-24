@@ -1,60 +1,36 @@
 import "./App.css";
-import React, { Fragment } from "react";
+import React, { useRef } from "react";
 
 function App() {
+  const form = useRef(null);
+
   const submit = (e) => {
+    console.log(form.current);
+
     e.preventDefault();
-    const data = new FormData(e.target);
+    const data = new FormData(form.current);
 
-    fetch("/api", {
-      method: "POST",
-      body: data,
-      headers: { "Soy-Un-Header": "Hola mundo" },
-    });
-  };
+    let datos = Object.fromEntries(data);
 
-  const espacio = () => {
-    return (
-      <Fragment>
-        <br />
-        <br />
-      </Fragment>
-    );
-  };
+    console.log(datos);
 
-  const Label = (props) => {
-    return (
-      <Fragment>
-        <label>{props.children}</label>
-        <br />
-      </Fragment>
-    );
+    fetch("/api", { method: "POST", body: data })
+      .then((res) => res.json())
+      .then((json) => console.log(json));
   };
 
   return (
     <div>
-      <form onSubmit={submit}>
-        <Label>Nombre</Label>
+      <form ref={form} onSubmit={submit}>
         <input type="text" name="nombre" />
-
-        {espacio()}
-
-        <Label>Apellidos</Label>
         <input type="text" name="apellidos" />
-
-        {espacio()}
 
         <textarea name="contenido">Soy un text area</textarea>
 
-        {espacio()}
-
-        <Label>Genero</Label>
         <select name="genero">
           <option value="femenino">Femenino</option>
           <option value="masculino">Masculino</option>
         </select>
-
-        {espacio()}
 
         <input type="submit" name="Enviar" />
       </form>
