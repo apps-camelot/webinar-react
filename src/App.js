@@ -3,6 +3,8 @@ import React from "react";
 import { Router, Link } from "@reach/router";
 
 function App() {
+  let number = 25;
+
   const Invoice = (props) => (
     <div>
       <h2>Invoice {props.invoiceId}</h2>
@@ -18,7 +20,7 @@ function App() {
       <h2>Invoices</h2>
       <ul>
         <li>
-          <Link to="/invoices/123">Invoice 123</Link>
+          <Link to={"/invoices/" + number}>Invoice {number}</Link>
         </li>
         <li>
           <Link to="/invoices/abc">Invoice ABC</Link>
