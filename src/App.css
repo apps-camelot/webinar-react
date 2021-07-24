@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
 }
 
@@ -26,6 +26,21 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.Calculadora {
+  color: white;
+}
+.Operacion {
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  margin: 10px;
+  padding: 0.3em;
+  min-width: 15px;
+  display: inline-block;
+}
+.input_number {
+  text-align: right;
 }
 
 @keyframes App-logo-spin {
