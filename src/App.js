@@ -1,63 +1,64 @@
 import "./App.css";
-import React, { Fragment } from "react";
+import React, { useState } from "react";
 
 function App() {
-  const submit = (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
+  const [num1, setNum1] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const [operador, setOperador] = useState("+");
+  const [resultado, setResultado] = useState(0);
 
-    fetch("/api", {
-      method: "POST",
-      body: data,
-      headers: { "Soy-Un-Header": "Hola mundo" },
-    });
-  };
+  /**
+   * Calculadora, con 2 inputs para numeros
+   * un combo para operaciones
+   * un botón
+   *
+   * resultado
+   */
 
-  const espacio = () => {
-    return (
-      <Fragment>
-        <br />
-        <br />
-      </Fragment>
-    );
-  };
-
-  const Label = (props) => {
-    return (
-      <Fragment>
-        <label>{props.children}</label>
-        <br />
-      </Fragment>
-    );
-  };
+  function calcular() {
+    if (operador === "+") {
+      setResultado(Number(num1) + Number(num2));
+    } else if (operador === "-") {
+      setResultado(Number(num1) - Number(num2));
+    } else if (operador === "*") {
+      setResultado(Number(num1) * Number(num2));
+    } else {
+      setResultado(Number(num1) / Number(num2));
+    }
+  }
 
   return (
     <div>
-      <form onSubmit={submit}>
-        <Label>Nombre</Label>
-        <input type="text" name="nombre" />
+      <input
+        type="number"
+        placeholder="Numero 1"
+        value={num1}
+        onChange={(e) => setNum1(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="Numero 2"
+        value={num2}
+        onChange={(e) => setNum2(e.target.value)}
+      />
 
-        {espacio()}
+      <select
+        onChange={(e) => {
+          let index = e.target.selectedIndex;
+          let valueSeleccionado = e.target[index].value;
 
-        <Label>Apellidos</Label>
-        <input type="text" name="apellidos" />
+          setOperador(valueSeleccionado);
+        }}
+      >
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
 
-        {espacio()}
+      <button onClick={calcular}>Calcular</button>
 
-        <textarea name="contenido">Soy un text area</textarea>
-
-        {espacio()}
-
-        <Label>Genero</Label>
-        <select name="genero">
-          <option value="femenino">Femenino</option>
-          <option value="masculino">Masculino</option>
-        </select>
-
-        {espacio()}
-
-        <input type="submit" name="Enviar" />
-      </form>
+      <h4>El resultado es: {resultado}</h4>
     </div>
   );
 }
