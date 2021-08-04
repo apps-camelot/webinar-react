@@ -1,19 +1,24 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 
 function App() {
-  const [mensaje, setMensaje] = useState("");
-
   return (
     <div>
-      <textarea
+      <select
         onChange={(event) => {
-          setMensaje(event.target.value);
+          console.log(event.target.value);
+
+          let index = event.target.selectedIndex;
+          let label = event.target[index].text;
+          console.log(label);
         }}
       >
-        {mensaje}
-      </textarea>
-      <h1>El mensaje es "{mensaje}"</h1>
+        <option value="lista1">Lista 1</option>
+        <option value="lista2" selected>
+          Lista 2
+        </option>
+        <option value="lista3">Lista 3</option>
+      </select>
     </div>
   );
 }
