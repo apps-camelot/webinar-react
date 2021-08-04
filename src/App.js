@@ -1,21 +1,65 @@
-import React, { useState, useEffect } from "react";
 import "./App.css";
+import React, { Fragment } from "react";
 
 function App() {
-  const [cargando, setCargando] = useState(true);
+  const submit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
 
-  function cargar() {
-    console.log("Cargando...");
-    setTimeout(() => {
-      setCargando(false);
-    }, 1000);
-  }
+    fetch("/api", {
+      method: "POST",
+      body: data,
+      headers: { "Soy-Un-Header": "Hola mundo" },
+    });
+  };
 
-  useEffect(() => {
-    cargar();
-  }, []);
+  const espacio = () => {
+    return (
+      <Fragment>
+        <br />
+        <br />
+      </Fragment>
+    );
+  };
 
-  return <div>{cargando ? <div>Cargando...</div> : <div>¡Listo!</div>}</div>;
+  const Label = (props) => {
+    return (
+      <Fragment>
+        <label>{props.children}</label>
+        <br />
+      </Fragment>
+    );
+  };
+
+  return (
+    <div>
+      <form onSubmit={submit}>
+        <Label>Nombre</Label>
+        <input type="text" name="nombre" />
+
+        {espacio()}
+
+        <Label>Apellidos</Label>
+        <input type="text" name="apellidos" />
+
+        {espacio()}
+
+        <textarea name="contenido">Soy un text area</textarea>
+
+        {espacio()}
+
+        <Label>Genero</Label>
+        <select name="genero">
+          <option value="femenino">Femenino</option>
+          <option value="masculino">Masculino</option>
+        </select>
+
+        {espacio()}
+
+        <input type="submit" name="Enviar" />
+      </form>
+    </div>
+  );
 }
 
 export default App;
