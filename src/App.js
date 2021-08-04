@@ -1,20 +1,26 @@
-import { Fragment, useState } from "react";
 import "./App.css";
+import Tarjeta from "./components/Tarjeta/Tarjeta";
 
 function App() {
-  const [nombre, setNombre] = useState("Iván");
-
-  const CustomInput = (props) => {
-    return <input placeholder={props.texto} value={props.value} />;
-  };
+  const datos = [
+    {
+      nombre: "Pizza",
+      precio: "$120.00",
+    },
+    {
+      nombre: "Hamburguesa",
+      precio: "$60.00",
+    },
+    {
+      nombre: "Refresco",
+      precio: "$20.00",
+    },
+  ];
 
   return (
     <div>
-      <CustomInput texto="Dame tu nombre" value="123" />
-      <CustomInput texto="Dame tus apellidos" />
-      {CustomInput({
-        texto: "Edad",
-        value: 5,
+      {datos.map((comida, i) => {
+        return <Tarjeta key={i} comida={comida} />;
       })}
     </div>
   );
