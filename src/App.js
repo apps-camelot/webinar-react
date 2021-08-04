@@ -1,19 +1,21 @@
+import { Fragment, useState } from "react";
 import "./App.css";
-import React from "react";
 
 function App() {
+  const [nombre, setNombre] = useState("Iván");
+
+  const CustomInput = (props) => {
+    return <input placeholder={props.texto} value={props.value} />;
+  };
+
   return (
     <div>
-      <input
-        type="checkbox"
-        value="si"
-        onChange={(e) => {
-          if (e.target.checked) {
-            console.log(e.target.value);
-          }
-        }}
-      />
-      Click
+      <CustomInput texto="Dame tu nombre" value="123" />
+      <CustomInput texto="Dame tus apellidos" />
+      {CustomInput({
+        texto: "Edad",
+        value: 5,
+      })}
     </div>
   );
 }
