@@ -1,29 +1,30 @@
+import { Fragment } from "react";
 import "./App.css";
-import React from "react";
 
 function App() {
-  const Input = ({ name, label }) => {
+  const Input = (props) => {
     return (
-      <label>
-        {label}
-        <input name={name} />
-      </label>
+      <Fragment>
+        <input
+          type={props.type || "radio"}
+          name={props.name || "genero"}
+          value={props.value}
+          onChange={(e) => {
+            if (e.target.checked) {
+              console.log(e.target.value);
+            }
+          }}
+        />
+        {props.label}
+      </Fragment>
     );
   };
 
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          console.log(e.target.nombre.value);
-          e.preventDefault();
-        }}
-      >
-        <Input name="nombre" label="Nombre" />
-        <Input name="apellidos" label="Apellidos" />
-
-        <input type="submit" value="Enviar" />
-      </form>
+      <Input value="femenino" label="Femenino" />
+      <Input value="masculino" label="Masculino" />
+      <Input type="password" label="Password" />
     </div>
   );
 }
