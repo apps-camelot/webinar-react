@@ -1,27 +1,31 @@
 import "./App.css";
-import Tarjeta from "./components/Tarjeta/Tarjeta";
+import React from "react";
 
 function App() {
-  const datos = [
-    {
-      nombre: "Pizza",
-      precio: "$120.00",
-    },
-    {
-      nombre: "Hamburguesa",
-      precio: "$60.00",
-    },
-    {
-      nombre: "Refresco",
-      precio: "$20.00",
-    },
-  ];
-
   return (
     <div>
-      {datos.map((comida, i) => {
-        return <Tarjeta key={i} comida={comida} />;
-      })}
+      <input
+        type="radio"
+        name="genero"
+        value="femenino"
+        onChange={(e) => {
+          if (e.target.checked) {
+            console.log(e.target.value);
+          }
+        }}
+      />{" "}
+      Femenino
+      <input
+        type="radio"
+        name="genero"
+        value="masculino"
+        onChange={(e) => {
+          if (e.target.checked) {
+            console.log(e.target.value);
+          }
+        }}
+      />{" "}
+      Masculino
     </div>
   );
 }
