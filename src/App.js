@@ -1,64 +1,73 @@
 import "./App.css";
-import React, { Fragment } from "react";
+import React from "react";
+import { Router, Link, useNavigate } from "@reach/router";
 
 function App() {
-  const submit = (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
+  let inSesion = false;
 
-    fetch("/api", {
-      method: "POST",
-      body: data,
-      headers: { "Soy-Un-Header": "Hola mundo" },
-    });
-  };
+  const Header = (props) => {
+    const navigate = useNavigate();
 
-  const espacio = () => {
     return (
-      <Fragment>
+      <div>
+        <h1>{props.title}</h1>
+        {props.children}
         <br />
-        <br />
-      </Fragment>
+        <button onClick={() => navigate("/")}>Regresar</button>
+      </div>
     );
   };
 
-  const Label = (props) => {
+  {
+    /**
+  // or with hooks
+  const Invoice = () => {
+    const params = useParams()
     return (
-      <Fragment>
-        <label>{props.children}</label>
-        <br />
-      </Fragment>
-    );
-  };
+      <div>
+        <h1>Invoice {params.invoiceId}</h1>
+      </div>
+    )
+  }
+  */
+  }
+
+  const Home = () => (
+    <Header title="Home">
+      <nav>
+        <Link to="/">Home</Link> | <Link to="consulta">Consulta</Link> |{" "}
+        <Link to="usuario/6">Usuario</Link> | <Link to="sesion">Perfil</Link>
+      </nav>
+    </Header>
+  );
+
+  const Consulta = (props) => (
+    <Header title="Consulta">Soy la página de consulta</Header>
+  );
+
+  const Usuario = (props) => (
+    <Header title="Usuario">
+      Usuario {props.userId}
+      <button onClick={() => props.navigate("../66")}>Ver otro usuario</button>
+    </Header>
+  );
+
+  const NotFound = () => (
+    <Header title="Not Found">Sorry, nothing here.</Header>
+  );
+
+  const Perfil = () => <Header title="Perfil">Soy Perfil</Header>;
+
+  const NoSesion = () => <Header title="NoSesion">Soy NoSesion</Header>;
 
   return (
-    <div>
-      <form onSubmit={submit}>
-        <Label>Nombre</Label>
-        <input type="text" name="nombre" />
-
-        {espacio()}
-
-        <Label>Apellidos</Label>
-        <input type="text" name="apellidos" />
-
-        {espacio()}
-
-        <textarea name="contenido">Soy un text area</textarea>
-
-        {espacio()}
-
-        <Label>Genero</Label>
-        <select name="genero">
-          <option value="femenino">Femenino</option>
-          <option value="masculino">Masculino</option>
-        </select>
-
-        {espacio()}
-
-        <input type="submit" name="Enviar" />
-      </form>
-    </div>
+    <Router>
+      <Home path="/" />
+      <Consulta path="consulta" />
+      <Usuario path="usuario/:userId" />
+      {inSesion ? <Perfil path="sesion" /> : <NoSesion path="sesion" />}
+      <NotFound default />
+    </Router>
   );
 }
 
