@@ -1,32 +1,37 @@
-import { Fragment, useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const Header = (props) => {
-    return (
-      <div>
-        Soy el header
-        <br />
-        {props.children}
-      </div>
-    );
-  };
+  const [respuesta, setRespuesta] = useState("");
+  const [imgSrc, setImgSrc] = useState("");
 
-  const Producto = () => {
-    return <div>So un producto</div>;
+  const preguntar = () => {
+    setRespuesta("");
+    setImgSrc("");
+
+    fetch("https://yesno.wtf/api/")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setRespuesta(data.answer);
+        setImgSrc(data.image);
+      })
+      .catch((err) => {
+        alert("Error: " + err);
+      });
   };
 
   return (
     <div>
-      <Header>
-        <Producto />
-      </Header>
-
-      <Header>Tareas</Header>
-
-      <Header>
-        <h1>Soy un children</h1>
-      </Header>
+      <label>
+        Pregunta:
+        <br />
+        <input placeholder="Pregunta" />
+      </label>
+      <br />
+      <button onClick={() => preguntar()}>Preguntar</button>
+      <h1>{respuesta}</h1>
+      <img src={imgSrc} />
     </div>
   );
 }
