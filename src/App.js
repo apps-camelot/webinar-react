@@ -4,21 +4,16 @@ import React from "react";
 function App() {
   return (
     <div>
-      <select
-        onChange={(event) => {
-          console.log(event.target.value);
-
-          let index = event.target.selectedIndex;
-          let label = event.target[index].text;
-          console.log(label);
+      <input
+        type="checkbox"
+        value="si"
+        onChange={(e) => {
+          if (e.target.checked) {
+            console.log(e.target.value);
+          }
         }}
-      >
-        <option value="lista1">Lista 1</option>
-        <option value="lista2" selected>
-          Lista 2
-        </option>
-        <option value="lista3">Lista 3</option>
-      </select>
+      />
+      Click
     </div>
   );
 }
