@@ -1,39 +1,21 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [respuesta, setRespuesta] = useState("");
-  const [imgSrc, setImgSrc] = useState("");
+  const [cargando, setCargando] = useState(true);
 
-  const preguntar = () => {
-    setRespuesta("");
-    setImgSrc("");
+  function cargar() {
+    console.log("Cargando...");
+    setTimeout(() => {
+      setCargando(false);
+    }, 1000);
+  }
 
-    fetch("https://yesno.wtf/api/")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setRespuesta(data.answer);
-        setImgSrc(data.image);
-      })
-      .catch((err) => {
-        alert("Error: " + err);
-      });
-  };
+  useEffect(() => {
+    cargar();
+  }, []);
 
-  return (
-    <div>
-      <label>
-        Pregunta:
-        <br />
-        <input placeholder="Pregunta" />
-      </label>
-      <br />
-      <button onClick={() => preguntar()}>Preguntar</button>
-      <h1>{respuesta}</h1>
-      <img src={imgSrc} />
-    </div>
-  );
+  return <div>{cargando ? <div>Cargando...</div> : <div>¡Listo!</div>}</div>;
 }
 
 export default App;
