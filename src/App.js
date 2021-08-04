@@ -2,30 +2,28 @@ import "./App.css";
 import React from "react";
 
 function App() {
+  const Input = ({ name, label }) => {
+    return (
+      <label>
+        {label}
+        <input name={name} />
+      </label>
+    );
+  };
+
   return (
     <div>
-      <input
-        type="radio"
-        name="genero"
-        value="femenino"
-        onChange={(e) => {
-          if (e.target.checked) {
-            console.log(e.target.value);
-          }
+      <form
+        onSubmit={(e) => {
+          console.log(e.target.nombre.value);
+          e.preventDefault();
         }}
-      />{" "}
-      Femenino
-      <input
-        type="radio"
-        name="genero"
-        value="masculino"
-        onChange={(e) => {
-          if (e.target.checked) {
-            console.log(e.target.value);
-          }
-        }}
-      />{" "}
-      Masculino
+      >
+        <Input name="nombre" label="Nombre" />
+        <Input name="apellidos" label="Apellidos" />
+
+        <input type="submit" value="Enviar" />
+      </form>
     </div>
   );
 }
