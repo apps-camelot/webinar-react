@@ -1,17 +1,19 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 
 function App() {
+  const [mensaje, setMensaje] = useState("");
+
   return (
     <div>
-      <input
-        id="nombre"
-        value={nombre}
-        placeholder="Escribe..."
+      <textarea
         onChange={(event) => {
-          setNombre(event.target.value);
+          setMensaje(event.target.value);
         }}
-      />
+      >
+        {mensaje}
+      </textarea>
+      <h1>El mensaje es "{mensaje}"</h1>
     </div>
   );
 }
